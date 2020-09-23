@@ -5,7 +5,6 @@ const compression = require('compression');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 
-const mongoClient = require('mongodb');
 const moment = require('moment');
 
 
@@ -35,13 +34,14 @@ app.use((req, res, next) => {
 
 
 // //set Router
-// const testRouter = require('./routes/testRoute');
-// const userRouter = require('./routes/userRoute');
+
+const smsRouter = require('./routes/smsRoute');
+
 
 // //set path 
 
-// app.use('/test',testRouter);
-// app.use('/user',userRouter);
+
+app.use('/sms',smsRouter);
 
 // app.get('/',(req , res , next) =>{  // path /
 
