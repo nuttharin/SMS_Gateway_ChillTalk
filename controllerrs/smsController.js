@@ -1,7 +1,7 @@
 const axios = require('axios');
 const request = require("request");
 const querystring = require('querystring');
-
+const {insertLogSMS} =  require('../function/log')
 
 const nameTable = {
     moneyTranfer : "sms_log_moneyTranfer" ,
@@ -94,9 +94,16 @@ sendSMSInvitation = (req, res ,next) =>{
 
 }
 
+test = (req, res ,next)=>{
+    res.status(200).json({
+        status : "success",
+        data : "" 
+    });
+}
 
 
 module.exports ={
     sendSMSInvitation,
+    test
 
 }

@@ -5,6 +5,10 @@ const { ensureToken } = require('../controllerrs/authController')
 
 const smsController = require('../controllerrs/smsController');
 
+// get
+router.get('/get/test',smsController.test);
+
+
 
 // post 
 
