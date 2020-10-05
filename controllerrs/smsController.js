@@ -1,7 +1,8 @@
 const axios = require('axios');
 const request = require("request");
 const querystring = require('querystring');
-const {insertLogSMS} =  require('../function/log')
+const { insertLogSMS } =  require('../function/log')
+
 
 const nameTable = {
     moneyTranfer : "sms_log_moneyTranfer" ,
@@ -24,45 +25,45 @@ const statusGasMachine = {
 const api_key_sms = process.env.API_KEY_SMS ;
 const api_secret_sms = process.env.API_SECRET_SMS ;
 
-sendSMSMoneyTranfer = (req , res , next) =>{
-    let dataBody = req.body ;
-    //  
-    const data = { 
-        to: dataBody.phoneNumber,
-        text: dataBody.massage,
-        api_key: api_key_sms,
-        api_secret: api_secret_sms,
-        from: 'Chill Talk LIMITED.' 
-    };
-    const options = {
-        method: 'POST',
-        headers: { 'content-type': 'application/x-www-form-urlencoded' },
-        data: querystring.stringify(data),
-        url: 'https://api.movider.co/v1/sms',
-    };
+// sendSMSMoneyTranfer = (req , res , next) =>{
+//     let dataBody = req.body ;
+//     //  
+//     const data = { 
+//         to: dataBody.phoneNumber,
+//         text: dataBody.massage,
+//         api_key: api_key_sms,
+//         api_secret: api_secret_sms,
+//         from: 'Chill Talk LIMITED.' 
+//     };
+//     const options = {
+//         method: 'POST',
+//         headers: { 'content-type': 'application/x-www-form-urlencoded' },
+//         data: querystring.stringify(data),
+//         url: 'https://api.movider.co/v1/sms',
+//     };
 
-    axios( options )
-    .then(function (response) {
-        //handle success
-        //console.log(response);
-        res.status(200).json({
-            status : "success",
-            data : "" 
-        });
-    })
-    .catch(function (error) {
-        // handle error
-        // console.log(error);
-        res.status(200).json({
-            status : "error",
-            data : "" 
-        });
-    })
-    .finally(function () {
-        // always executed
-    });
+//     axios( options )
+//     .then(function (response) {
+//         //handle success
+//         //console.log(response);
+//         res.status(200).json({
+//             status : "success",
+//             data : "" 
+//         });
+//     })
+//     .catch(function (error) {
+//         // handle error
+//         // console.log(error);
+//         res.status(200).json({
+//             status : "error",
+//             data : "" 
+//         });
+//     })
+//     .finally(function () {
+//         // always executed
+//     });
     
-}
+// }
 
 sendSMSGasMachine = (req , res , next) =>{
     let data = {
@@ -124,7 +125,6 @@ test = (req, res ,next)=>{
 
 
 module.exports ={
-    sendSMSMoneyTranfer,
     sendSMSInvitation,
     sendSMSGasMachine,
     test
