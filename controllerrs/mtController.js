@@ -77,45 +77,45 @@ sendSmsOtp = (req , res , next) =>{
     let sql = `INSERT INTO tb_otp(phone , otp , senddate ,status) 
                 VALUES ( ${data.to}, ${otp},${data.date} ,'0')`;
 
-    pool.query(
-        sql, 
-        (err, result) => {
+    // pool.query(
+    //     sql, 
+    //     (err, result) => {
 
-            if (err) {
-                console.log(err);  
-                let data = {
-                    status : "error",
-                    data : ""
-                }   
-                res.status(400).json(data)
-            }
-            else
-            {
-                console.log(result);
-                // axios( options )
-                // .then(function (response) {
-                //     //handle success
-                //     //console.log(response);
-                //     res.status(200).json({
-                //         status : "success",
-                //         data : "" 
-                //     });
-                // })
-                // .catch(function (error) {
-                //     // handle error
-                //     // console.log(error);
-                //     res.status(200).json({
-                //         status : "error",
-                //         data : "" 
-                //     });
-                // })
-                // .finally(function () {
-                //     // always executed
-                // });
-                res.status(200).json(data);
-            }
-        }
-    );
+    //         if (err) {
+    //             console.log(err);  
+    //             let data = {
+    //                 status : "error",
+    //                 data : ""
+    //             }   
+    //             res.status(400).json(data)
+    //         }
+    //         else
+    //         {
+    //             console.log(result);
+    //             // axios( options )
+    //             // .then(function (response) {
+    //             //     //handle success
+    //             //     //console.log(response);
+    //             //     res.status(200).json({
+    //             //         status : "success",
+    //             //         data : "" 
+    //             //     });
+    //             // })
+    //             // .catch(function (error) {
+    //             //     // handle error
+    //             //     // console.log(error);
+    //             //     res.status(200).json({
+    //             //         status : "error",
+    //             //         data : "" 
+    //             //     });
+    //             // })
+    //             // .finally(function () {
+    //             //     // always executed
+    //             // });
+    //             res.status(200).json(data);
+    //         }
+    //     }
+    // );
     
    
 
