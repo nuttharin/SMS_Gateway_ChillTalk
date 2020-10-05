@@ -13,7 +13,7 @@ router.get('/get/test',smsController.test);
 // post 
 
 router.post('/post/sendSMSInvitation',ensureToken,smsController.sendSMSInvitation);
-
+router.post('/post/sendSMSMoneyTranfer',ensureToken,smsController.sendSMSMoneyTranfer);
 
 
 

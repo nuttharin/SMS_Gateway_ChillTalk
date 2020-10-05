@@ -34,14 +34,12 @@ app.use((req, res, next) => {
 
 
 // //set Router
-
 const smsRouter = require('./routes/smsRoute');
 
 
 // //set path 
-
-
 app.use('/sms',smsRouter);
+
 
 // app.get('/',(req , res , next) =>{  // path /
 

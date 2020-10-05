@@ -25,21 +25,42 @@ const api_key_sms = process.env.API_KEY_SMS ;
 const api_secret_sms = process.env.API_SECRET_SMS ;
 
 sendSMSMoneyTranfer = (req , res , next) =>{
-    let data = {
-        to : "",
-        text : "",
-        api_key : "",
-        api_secret : ""
-        
-    }
-    axios.post('', data )
-    .then(res => {
-        //console.log(`statusCode: ${res.statusCode}`)
-        console.log(res)
+    let dataBody = req.body ;
+    //  
+    const data = { 
+        to: dataBody.phoneNumber,
+        text: dataBody.massage,
+        api_key: api_key_sms,
+        api_secret: api_secret_sms,
+        from: 'Chill Talk LIMITED.' 
+    };
+    const options = {
+        method: 'POST',
+        headers: { 'content-type': 'application/x-www-form-urlencoded' },
+        data: querystring.stringify(data),
+        url: 'https://api.movider.co/v1/sms',
+    };
+
+    axios( options )
+    .then(function (response) {
+        //handle success
+        //console.log(response);
+        res.status(200).json({
+            status : "success",
+            data : "" 
+        });
     })
-    .catch(error => {
-        console.error(error)
+    .catch(function (error) {
+        // handle error
+        // console.log(error);
+        res.status(200).json({
+            status : "error",
+            data : "" 
+        });
     })
+    .finally(function () {
+        // always executed
+    });
     
 }
 
@@ -103,7 +124,9 @@ test = (req, res ,next)=>{
 
 
 module.exports ={
+    sendSMSMoneyTranfer,
     sendSMSInvitation,
+    sendSMSGasMachine,
     test
 
 }
