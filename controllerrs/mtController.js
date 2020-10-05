@@ -74,9 +74,10 @@ sendSmsOtp = (req , res , next) =>{
         url: 'https://api.movider.co/v1/sms',
     };
 
-    let sql = `INSERT INTO tb_otp(phone , otp , senddate ,status) 
-                VALUES ( ${data.to}, ${otp},${data.date} ,'0')`;
+    // let sql = `INSERT INTO tb_otp(phone , otp , senddate ,status) 
+    //             VALUES ( ${data.to}, ${otp},${data.date} ,'0')`;
 
+    let sql = `SELECT * FROM "public"."tb_otp"`;
     pool.query(
         sql, 
         (err, result) => {
