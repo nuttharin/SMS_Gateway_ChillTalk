@@ -40,7 +40,7 @@ const pool = new Pool({
 
 module.exports = {
     pool,
-    client,
+    //client,
     MongoClient,
     URL_MONGODB_IOT
 }
