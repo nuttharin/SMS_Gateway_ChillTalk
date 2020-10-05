@@ -24,6 +24,7 @@ console.log(client);
 
 module.exports = {
     pool,
+    client,
     MongoClient,
     URL_MONGODB_IOT
 }

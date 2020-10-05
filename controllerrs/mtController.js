@@ -4,7 +4,7 @@ const querystring = require('querystring');
 const {totp ,authenticator }  = require('otplib');
 const { insertLogSMS } =  require('../function/log');
 const { sendSMSMoneyTranfer } = require('./smsController');
-const { pool } = require("../dbConfig");
+const { pool , client} = require("../dbConfig");
 
 // const secret = 'KVKFKRCPNZQUYMLXOVYDSQKJKZDTSRLD';
 
