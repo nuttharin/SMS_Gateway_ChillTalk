@@ -11,7 +11,7 @@ const connectionStringPostgres = `postgresql://${process.env.DB_POSTGRES_USER}:$
 const pool = new Pool({
     connectionString:  connectionStringPostgres   
 });
-console.log(pool);
+//console.log(pool);
 pool.connect((err, client, release) => {
     if (err) {
       return console.error('Error acquiring client', err.stack)
@@ -21,6 +21,7 @@ pool.connect((err, client, release) => {
       if (err) {
         return console.error('Error executing query', err.stack)
       }
+      console.log("connect")
       console.log(result.rows)
     })
   })
