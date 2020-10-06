@@ -59,13 +59,13 @@ sendSmsOtp = (req , res , next) =>{
     let dataBody = req.body ;
 
     let otp = totp.generate(api_key_sms_otp);
+    let newDate  =  moment(new Date).format('YYYY-MM-DD h:mm:ss') ;
     const data = { 
         to: dataBody.phoneNumber,
         text: "OTP ของคุณคือ "+otp+" อย่าเปิดเผยรหัสนี้กับผู้อื่น",
         api_key: api_key_sms,
         api_secret: api_secret_sms,
         from: 'Chill Talk LIMITED.' ,
-        date : moment(new Date).format('YYYY-MM-DD h:mm:ss')
     };
     //console.log(data)
 
@@ -77,7 +77,7 @@ sendSmsOtp = (req , res , next) =>{
     };
 
     let sql = `INSERT INTO "public"."tb_otp"(phone , otp , senddate ,status) 
-                VALUES ( '${data.to}', '${otp.toString()}','${data.date}' ,'0');`;
+                VALUES ( '${data.to}', '${otp.toString()}','${newDate}' ,'0');`;
     //console.log(sql);
     //INSERT INTO "public"."tb_otp"("id", "phone", "otp", "senddate", "status") VALUES (1, '0812318897', '111111', '2011-01-01 00:00:00', '0');
     pool.query(
@@ -98,7 +98,7 @@ sendSmsOtp = (req , res , next) =>{
                     //handle success
                     console.log(response);
                     //  INSERT INTO "public"."tb_log_sms"("phone", "senddate", "from") VALUES ('0811111111', '2020-10-06', 'mt')
-                    sql = `INSERT INTO "public"."tb_log_sms"("phone", "senddate", "from") VALUES ('${data.to}', '${data.date}', 'mt');`;
+                    sql = `INSERT INTO "public"."tb_log_sms"("phone", "senddate", "from") VALUES ('${data.to}', '${newDate}', 'mt');`;
                     pool.query(sql , (err, result) =>{
                         if (err) {
                             console.log(err);  
