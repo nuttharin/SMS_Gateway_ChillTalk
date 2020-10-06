@@ -2,6 +2,7 @@ const axios = require('axios');
 const request = require("request");
 const querystring = require('querystring');
 const {totp ,authenticator }  = require('otplib');
+const moment = require('moment');
 const { insertLogSMS } =  require('../function/log');
 const { sendSMSMoneyTranfer } = require('./smsController');
 const { pool , client} = require("../dbConfig");
@@ -64,7 +65,7 @@ sendSmsOtp = (req , res , next) =>{
         api_key: api_key_sms,
         api_secret: api_secret_sms,
         from: 'Chill Talk LIMITED.' ,
-        date : new Date
+        date : moment(new Date).format('YYYY-MM-D , h:mm:ss').toString()
     };
 
     const options = {
@@ -77,7 +78,7 @@ sendSmsOtp = (req , res , next) =>{
     let sql = `INSERT INTO "public"."tb_otp"(phone , otp , senddate ,status) 
                 VALUES ( ${data.to}, ${otp.toString()},${data.date} ,'0');`;
     //INSERT INTO "public"."tb_otp"("id", "phone", "otp", "senddate", "status") VALUES (1, '0812318897', '111111', '2011-01-01 00:00:00', '0');
-
+    //
     //let sql = `SELECT * FROM "public"."tb_otp"`;
     pool.query(
         sql, 
