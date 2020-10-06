@@ -3,8 +3,6 @@ const request = require("request");
 const querystring = require('querystring');
 const {totp ,authenticator }  = require('otplib');
 const moment = require('moment');
-const { insertLogSMS } =  require('../function/log');
-const { sendSMSMoneyTranfer } = require('./smsController');
 const { pool , client} = require("../dbConfig");
 
 // const secret = 'KVKFKRCPNZQUYMLXOVYDSQKJKZDTSRLD';
@@ -85,11 +83,11 @@ sendSmsOtp = (req , res , next) =>{
         (err, result) => {
 
             if (err) {
-                let data = {
+                
+                res.status(400).json({
                     status : "error",
                     data : "error insert OTP"
-                }   
-                res.status(400).json(data)
+                })
             }
             else
             {
@@ -101,12 +99,12 @@ sendSmsOtp = (req , res , next) =>{
                     sql = `INSERT INTO "public"."tb_log_sms"("phone", "senddate", "from") VALUES ('${data.to}', '${newDate}', 'mt');`;
                     pool.query(sql , (err, result) =>{
                         if (err) {
-                            console.log(err);  
-                            let data = {
+                            //console.log(err);  
+                          
+                            res.status(400).json({
                                 status : "error",
                                 data : "error insert log sms"
-                            }   
-                            res.status(400).json(data)
+                            })
                         }
                         else
                         {
@@ -119,8 +117,8 @@ sendSmsOtp = (req , res , next) =>{
                 })
                 .catch(function (error) {
                     // handle error
-                    console.log(error);
-                    res.status(200).json({
+                    //console.log(error);
+                    res.status(400).json({
                         status : "error",
                         data : "error send sms OTP" 
                     });
@@ -139,9 +137,82 @@ sendSmsOtp = (req , res , next) =>{
 }
 
 checkOtp = (req , res , next) =>{
+    let dataBody = req.body ;
+    let data = 
+    {
+        phoneNumber : dataBody.phoneNumber,
+        otp : dataBody.otp
+    }
+    let sql = `SELECT * FROM "public"."tb_otp" 
+                WHERE tb_otp.phone = '66812318897'
+                ORDER BY tb_otp.senddate DESC
+                LIMIT 1;`;
+    pool.query(sql , (err, result) =>{
+        if (err) {
+            //console.log(err);  
+            let data = {
+                status : "error",
+                data : "error get otp"
+            }   
+            res.status(400).json(data)
+        }
+        else
+        {
+            let dataOtp = result.rows[0] ;
+            if(dataOtp.otp == data.otp)
+            {
+                 res.status(200).json({
+                    status : "success",
+                    data : true
+                });
+            }
+            else{
+                res.status(200).json({
+                    status : "success",
+                    data : false
+                });
+            }
+           
+
+        }
+    })
+}
+
+sendSMSMoneyTranfer = (req , res , next) =>{
+    let dataBody = req.body ;
+
+    let otp = totp.generate(api_key_sms_otp);
+    let newDate  =  moment(new Date).format('YYYY-MM-DD h:mm:ss') ;
+    const data = { 
+        to: dataBody.phoneNumber,
+        text: dataBody.message,
+        api_key: api_key_sms,
+        api_secret: api_secret_sms,
+        from: 'Chill Talk LIMITED.' ,
+    };
 
 }
 
+insertLogSMS = () =>{
+    let sql = `INSERT INTO "public"."tb_log_sms"("phone", "senddate", "from") VALUES ('${data.to}', '${newDate}', 'mt');`;
+    pool.query(sql , (err, result) =>{
+        if (err) {
+            console.log(err);  
+            let data = {
+                status : "error",
+                data : "error insert log sms"
+            }   
+            res.status(400).json(data)
+        }
+        else
+        {
+            res.status(200).json({
+                status : "success",
+                data : "send OTP complete"
+            });
+        }
+    })
+}
 
 
 
