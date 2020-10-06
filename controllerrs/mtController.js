@@ -68,7 +68,7 @@ sendSmsOtp = (req , res , next) =>{
         date : moment(new Date).format('YYYY-MM-DD h:mm:ss')
     };
     console.log(data)
-    
+
     const options = {
         method: 'POST',
         headers: { 'content-type': 'application/x-www-form-urlencoded' },
@@ -76,9 +76,9 @@ sendSmsOtp = (req , res , next) =>{
         url: 'https://api.movider.co/v1/sms',
     };
 
-    // let sql = `INSERT INTO "public"."tb_otp"(phone , otp , senddate ,status) 
-    //             VALUES ( ${data.to}, ${otp.toString()},${data.date} ,'0');`;
-    let sql = `INSERT INTO "public"."tb_otp"("phone", "otp", "senddate", "status") VALUES ( '0812318897', '111111', '2011-01-01 00:00:00', '0');`;
+    let sql = `INSERT INTO "public"."tb_otp"(phone , otp , senddate ,status) 
+                VALUES ( ${data.to}, ${otp.toString()},${data.date} ,'0');`;
+    //let sql = `INSERT INTO "public"."tb_otp"("phone", "otp", "senddate", "status") VALUES ( '0812318897', '111111', '2011-01-01 00:00:00', '0');`;
     //INSERT INTO "public"."tb_otp"("id", "phone", "otp", "senddate", "status") VALUES (1, '0812318897', '111111', '2011-01-01 00:00:00', '0');
     //
     //let sql = `SELECT * FROM "public"."tb_otp"`;
