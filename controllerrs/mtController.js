@@ -67,7 +67,7 @@ sendSmsOtp = (req , res , next) =>{
         from: 'Chill Talk LIMITED.' ,
         date : moment(new Date).format('YYYY-MM-DD h:mm:ss')
     };
-    console.log(data)
+    //console.log(data)
 
     const options = {
         method: 'POST',
@@ -91,7 +91,7 @@ sendSmsOtp = (req , res , next) =>{
                 console.log(err);  
                 let data = {
                     status : "error",
-                    data : ""
+                    data : "error insert otp"
                 }   
                 res.status(400).json(data)
             }
@@ -102,23 +102,56 @@ sendSmsOtp = (req , res , next) =>{
                 // .then(function (response) {
                 //     //handle success
                 //     //console.log(response);
+                //     //  INSERT INTO "public"."tb_log_sms"("phone", "senddate", "from") VALUES ('0811111111', '2020-10-06', 'mt')
+                //     sql = `INSERT INTO "public"."tb_log_sms"("phone", "senddate", "from") VALUES ('${data.to}', '${data.date}', 'mt');`;
+                //     pool.query(sql , (err, result) =>{
+                //         if (err) {
+                //             console.log(err);  
+                //             let data = {
+                //                 status : "error",
+                //                 data : "error insert log sms"
+                //             }   
+                //             res.status(400).json(data)
+                //         }
+                //         else
+                //         {
+
+                //         }
+                //     })
                 //     res.status(200).json({
                 //         status : "success",
-                //         data : "" 
+                //         data : {
+                //             otp : otp
+                //         }
                 //     });
+
                 // })
                 // .catch(function (error) {
                 //     // handle error
                 //     // console.log(error);
                 //     res.status(200).json({
                 //         status : "error",
-                //         data : "" 
+                //         data : "error send sms otp" 
                 //     });
                 // })
                 // .finally(function () {
                 //     // always executed
                 // });
-                res.status(200).json(data);
+                sql = `INSERT INTO "public"."tb_log_sms"("phone", "senddate", "from") VALUES ('${data.to}', '${data.date}', 'mt');`;
+                pool.query(sql , (err, result) =>{
+                    if (err) {
+                        console.log(err);  
+                        let data = {
+                            status : "error",
+                            data : "error insert log sms"
+                        }   
+                        res.status(400).json(data)
+                    }
+                    else
+                    {
+                        res.status(200).json("")
+                    }
+                });
             }
         }
     );
