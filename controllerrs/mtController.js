@@ -61,7 +61,6 @@ sendSmsOtp = (req , res , next) =>{
     let otp = totp.generate(api_key_sms_otp);
     const data = { 
         to: dataBody.phoneNumber,
-        text: dataBody.massage,
         api_key: api_key_sms,
         api_secret: api_secret_sms,
         from: 'Chill Talk LIMITED.' ,
