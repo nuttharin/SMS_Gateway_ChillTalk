@@ -87,7 +87,7 @@ sendSmsOtp = (req , res , next) =>{
             if (err) {
                 let data = {
                     status : "error",
-                    data : "error insert otp"
+                    data : "error insert OTP"
                 }   
                 res.status(400).json(data)
             }
@@ -112,9 +112,7 @@ sendSmsOtp = (req , res , next) =>{
                         {
                             res.status(200).json({
                                 status : "success",
-                                data : {
-                                    otp : otp
-                                }
+                                data : "send OTP complete"
                             });
                         }
                     })
@@ -124,7 +122,7 @@ sendSmsOtp = (req , res , next) =>{
                     console.log(error);
                     res.status(200).json({
                         status : "error",
-                        data : "error send sms otp" 
+                        data : "error send sms OTP" 
                     });
                 })
                 .finally(function () {
