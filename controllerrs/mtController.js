@@ -95,7 +95,7 @@ sendSmsOtp = (req , res , next) =>{
                 axios( options )
                 .then(function (response) {
                     //handle success
-                    //console.log(response);
+                    console.log(response);
                     //  INSERT INTO "public"."tb_log_sms"("phone", "senddate", "from") VALUES ('0811111111', '2020-10-06', 'mt')
                     sql = `INSERT INTO "public"."tb_log_sms"("phone", "senddate", "from") VALUES ('${data.to}', '${data.date}', 'mt');`;
                     pool.query(sql , (err, result) =>{
@@ -120,7 +120,7 @@ sendSmsOtp = (req , res , next) =>{
                 })
                 .catch(function (error) {
                     // handle error
-                    // console.log(error);
+                    console.log(error);
                     res.status(200).json({
                         status : "error",
                         data : "error send sms otp" 
