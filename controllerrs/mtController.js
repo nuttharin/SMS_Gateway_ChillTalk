@@ -77,17 +77,13 @@ sendSmsOtp = (req , res , next) =>{
 
     let sql = `INSERT INTO "public"."tb_otp"(phone , otp , senddate ,status) 
                 VALUES ( '${data.to}', '${otp.toString()}','${data.date}' ,'0');`;
-    console.log(sql);
-    //let sql = `INSERT INTO "public"."tb_otp"("phone", "otp", "senddate", "status") VALUES ( '0812318897', '111111', '2011-01-01 00:00:00', '0');`;
+    //console.log(sql);
     //INSERT INTO "public"."tb_otp"("id", "phone", "otp", "senddate", "status") VALUES (1, '0812318897', '111111', '2011-01-01 00:00:00', '0');
-    //
-    //let sql = `SELECT * FROM "public"."tb_otp"`;
     pool.query(
         sql, 
         (err, result) => {
 
             if (err) {
-                console.log(err);  
                 let data = {
                     status : "error",
                     data : "error insert otp"
@@ -96,61 +92,44 @@ sendSmsOtp = (req , res , next) =>{
             }
             else
             {
-                console.log(result);
-                // axios( options )
-                // .then(function (response) {
-                //     //handle success
-                //     //console.log(response);
-                //     //  INSERT INTO "public"."tb_log_sms"("phone", "senddate", "from") VALUES ('0811111111', '2020-10-06', 'mt')
-                //     sql = `INSERT INTO "public"."tb_log_sms"("phone", "senddate", "from") VALUES ('${data.to}', '${data.date}', 'mt');`;
-                //     pool.query(sql , (err, result) =>{
-                //         if (err) {
-                //             console.log(err);  
-                //             let data = {
-                //                 status : "error",
-                //                 data : "error insert log sms"
-                //             }   
-                //             res.status(400).json(data)
-                //         }
-                //         else
-                //         {
-
-                //         }
-                //     })
-                //     res.status(200).json({
-                //         status : "success",
-                //         data : {
-                //             otp : otp
-                //         }
-                //     });
-
-                // })
-                // .catch(function (error) {
-                //     // handle error
-                //     // console.log(error);
-                //     res.status(200).json({
-                //         status : "error",
-                //         data : "error send sms otp" 
-                //     });
-                // })
-                // .finally(function () {
-                //     // always executed
-                // });
-                sql = `INSERT INTO "public"."tb_log_sms"("phone", "senddate", "from") VALUES ('${data.to}', '${data.date}', 'mt');`;
-                pool.query(sql , (err, result) =>{
-                    if (err) {
-                        console.log(err);  
-                        let data = {
-                            status : "error",
-                            data : "error insert log sms"
-                        }   
-                        res.status(400).json(data)
-                    }
-                    else
-                    {
-                        res.status(200).json("")
-                    }
+                axios( options )
+                .then(function (response) {
+                    //handle success
+                    //console.log(response);
+                    //  INSERT INTO "public"."tb_log_sms"("phone", "senddate", "from") VALUES ('0811111111', '2020-10-06', 'mt')
+                    sql = `INSERT INTO "public"."tb_log_sms"("phone", "senddate", "from") VALUES ('${data.to}', '${data.date}', 'mt');`;
+                    pool.query(sql , (err, result) =>{
+                        if (err) {
+                            console.log(err);  
+                            let data = {
+                                status : "error",
+                                data : "error insert log sms"
+                            }   
+                            res.status(400).json(data)
+                        }
+                        else
+                        {
+                            res.status(200).json({
+                                status : "success",
+                                data : {
+                                    otp : otp
+                                }
+                            });
+                        }
+                    })
+                })
+                .catch(function (error) {
+                    // handle error
+                    // console.log(error);
+                    res.status(200).json({
+                        status : "error",
+                        data : "error send sms otp" 
+                    });
+                })
+                .finally(function () {
+                    // always executed
                 });
+               
             }
         }
     );
