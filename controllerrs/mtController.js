@@ -65,7 +65,7 @@ sendSmsOtp = (req , res , next) =>{
         api_key: api_key_sms,
         api_secret: api_secret_sms,
         from: 'Chill Talk LIMITED.' ,
-        date : moment(new Date).format('YYYY-MM-D , h:mm:ss')
+        date : moment(new Date).format('YYYY-MM-D h:mm:ss')
     };
     console.log(data)
     const options = {
