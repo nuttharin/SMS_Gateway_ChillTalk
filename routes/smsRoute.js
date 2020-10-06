@@ -17,8 +17,9 @@ router.get('/get/test',smsController.test);
 router.post('/post/sendSMSInvitation',ensureToken,smsController.sendSMSInvitation);
 
 // router.post('/post/sendSMSMoneyTranfer',ensureToken,mtController.sendSMSMoneyTranfer);
-router.post('/mt/post/sendOtp',ensureToken,mtController.sendSmsOtp);
-router.post('/mt/post/checkOtp',ensureToken,mtController.checkOtp);
+router.post('/mt/post/sendMessage',mtController.sendSMSMt);
+router.post('/mt/post/sendOtp',mtController.sendSmsOtp);
+router.post('/mt/post/checkOtp',mtController.checkOtp);
 
  
 

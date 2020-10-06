@@ -178,11 +178,11 @@ checkOtp = (req , res , next) =>{
     })
 }
 
-sendSMSMoneyTranfer = (req , res , next) =>{
+sendSMSMt = (req , res , next) =>{
     let dataBody = req.body ;
+    let newDate  =  moment(new Date).format('YYYY-MM-DD h:mm:ss') ;
 
     let otp = totp.generate(api_key_sms_otp);
-    let newDate  =  moment(new Date).format('YYYY-MM-DD h:mm:ss') ;
     const data = { 
         to: dataBody.phoneNumber,
         text: dataBody.message,
@@ -190,6 +190,49 @@ sendSMSMoneyTranfer = (req , res , next) =>{
         api_secret: api_secret_sms,
         from: 'Chill Talk LIMITED.' ,
     };
+
+    const options = {
+        method: 'POST',
+        headers: { 'content-type': 'application/x-www-form-urlencoded' },
+        data: querystring.stringify(data),
+        url: 'https://api.movider.co/v1/sms',
+    };
+
+    axios( options )
+    .then(function (response) {
+        //handle success
+        //console.log(response);
+        
+        sql = `INSERT INTO "public"."tb_log_sms"("phone", "senddate", "from") VALUES ('${data.to}', '${newDate}', 'mt');`;
+        pool.query(sql , (err, result) =>{
+            if (err) {
+                //console.log(err);  
+              
+                res.status(400).json({
+                    status : "error",
+                    data : "error insert log sms"
+                })
+            }
+            else
+            {
+                res.status(200).json({
+                    status : "success",
+                    data : "send complete" 
+                });
+            }
+        })
+    })
+    .catch(function (error) {
+        // handle error
+        // console.log(error);
+        res.status(200).json({
+            status : "error",
+            data : "send not complete" 
+        });
+    })
+    .finally(function () {
+        // always executed
+    });
 
 }
 
@@ -227,5 +270,6 @@ test = (req, res ,next)=>{
 module.exports ={
     sendSmsOtp,
     checkOtp,
+    sendSMSMt,
     test
 }
