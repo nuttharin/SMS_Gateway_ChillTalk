@@ -68,6 +68,7 @@ sendSmsOtp = (req , res , next) =>{
         date : moment(new Date).format('YYYY-MM-DD h:mm:ss')
     };
     console.log(data)
+    
     const options = {
         method: 'POST',
         headers: { 'content-type': 'application/x-www-form-urlencoded' },
