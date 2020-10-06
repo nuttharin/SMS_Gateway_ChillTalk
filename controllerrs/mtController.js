@@ -75,7 +75,8 @@ sendSmsOtp = (req , res , next) =>{
     };
 
     let sql = `INSERT INTO "public"."tb_otp"(phone , otp , senddate ,status) 
-                VALUES ( ${data.to}, ${otp},${data.date} ,'0')`;
+                VALUES ( ${data.to}, ${otp.toString()},${data.date} ,'0');`;
+    //INSERT INTO "public"."tb_otp"("id", "phone", "otp", "senddate", "status") VALUES (1, '0812318897', '111111', '2011-01-01 00:00:00', '0');
 
     //let sql = `SELECT * FROM "public"."tb_otp"`;
     pool.query(
