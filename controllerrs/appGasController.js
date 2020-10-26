@@ -144,3 +144,9 @@ checkOtp = (req , res , next) =>{
         }
     })
 }
+
+
+module.exports ={
+    sendSmsOtp,
+    checkOtp
+}
