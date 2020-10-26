@@ -35,7 +35,7 @@ sendSmsOtp = (req , res , next) =>{
         url: 'https://api.movider.co/v1/sms',
     };
 
-    let sql = `INSERT INTO "public"."tb_otp"(phone , otp , senddate ,status) 
+    let sql = `INSERT INTO "public"."tb_otp_gas"(phone , otp , senddate ,status) 
                 VALUES ( '${data.to}', '${otp.toString()}','${newDate}' ,'0');`;
     //console.log(sql);
     //INSERT INTO "public"."tb_otp"("id", "phone", "otp", "senddate", "status") VALUES (1, '0812318897', '111111', '2011-01-01 00:00:00', '0');
@@ -107,7 +107,7 @@ checkOtp = (req , res , next) =>{
         phoneNumber : dataBody.phoneNumber,
         otp : dataBody.otp
     }
-    let sql = `SELECT * FROM "public"."tb_otp" 
+    let sql = `SELECT * FROM "public"."tb_otp_gas" 
                 WHERE tb_otp.phone = '${data.phoneNumber}'
                 ORDER BY tb_otp.senddate DESC
                 LIMIT 1;`;
