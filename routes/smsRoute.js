@@ -26,8 +26,8 @@ router.post('/mt/post/checkOtp',mtController.checkOtp);
 
 
 //App Gas
-router.post('/mt/post/sendOtp',appGasController.sendSmsOtp);
-router.post('/mt/post/checkOtp',appGasController.checkOtp);
+router.post('/appGas/post/sendOtp',appGasController.sendSmsOtp);
+router.post('/appGas/post/checkOtp',appGasController.checkOtp);
 
 
 module.exports = router;
