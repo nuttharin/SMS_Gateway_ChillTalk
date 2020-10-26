@@ -24,7 +24,7 @@ sendSmsOtp = (req , res , next) =>{
         text: "OTP ของคุณคือ "+otp+" อย่าเปิดเผยรหัสนี้กับผู้อื่น",
         api_key: api_key_sms,
         api_secret: api_secret_sms,
-        from: 'Chill Talk LIMITED.' ,
+        from: 'ChillTalk' ,
     };
     //console.log(data)
 
