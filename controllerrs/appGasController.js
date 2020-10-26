@@ -108,8 +108,8 @@ checkOtp = (req , res , next) =>{
         otp : dataBody.otp
     }
     let sql = `SELECT * FROM "public"."tb_otp_gas" 
-                WHERE tb_otp.phone = '${data.phoneNumber}'
-                ORDER BY tb_otp.senddate DESC
+                WHERE tb_otp_gas.phone = '${data.phoneNumber}'
+                ORDER BY tb_otp_gas.senddate DESC
                 LIMIT 1;`;
     pool.query(sql , (err, result) =>{
         if (err) {
