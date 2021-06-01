@@ -145,8 +145,54 @@ checkOtp = (req , res , next) =>{
     })
 }
 
+sendSMSMessage = (req , res , next) =>{
+    let dataBody = req.body ;
+    let newDate  =  moment(new Date).format('YYYY-MM-DD h:mm:ss') ;
+
+    let otp = totp.generate(api_key_sms_otp);
+    const data = { 
+        to: dataBody.phoneNumber,
+        text: dataBody.message,
+        api_key: api_key_sms,
+        api_secret: api_secret_sms,
+        from: 'CHILLTALK' ,
+    };
+
+    const options = {
+        method: 'POST',
+        headers: { 'content-type': 'application/x-www-form-urlencoded' },
+        data: querystring.stringify(data),
+        url: 'https://api.movider.co/v1/sms',
+    };
+
+    axios( options )
+    .then(function (response) {
+        //handle success
+        //console.log(response);
+        res.status(200).json({
+            status : "success",
+            statusCode : 201 ,
+            data : "send complete" 
+        });
+        
+    })
+    .catch(function (error) {
+        // handle error
+        // console.log(error);
+        res.status(200).json({
+            status : "error",
+            statusCode : 200 ,
+            data : "send not complete" 
+        });
+    })
+    .finally(function () {
+        // always executed
+    });
+
+}
 
 module.exports ={
     sendSmsOtp,
-    checkOtp
+    checkOtp,
+    sendSMSMessage
 }
