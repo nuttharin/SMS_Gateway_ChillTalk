@@ -11,7 +11,7 @@ exports.ensureToken = (req, res, next) => {
     //console.log(process.env.JWT_SECRET)
     const token = req.headers["authorization"]
     //console.log(token);
-    console.log(process.env.API_KEY_SECRET)
+    //console.log(process.env.API_KEY_SECRET)
     if(typeof token !== 'undefined')
     {     
         req.token = token ;
