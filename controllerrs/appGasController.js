@@ -35,7 +35,7 @@ sendSmsOtp = (req , res , next) =>{
         url: 'https://api.movider.co/v1/sms',
     };
 
-    let sql = `INSERT INTO "public"."tb_otp_gas"(phone , otp , senddate ,status) 
+    let sql = `INSERT INTO "public"."tb_otp_gas"(phonenumber , otp , senddate ,status) 
                 VALUES ( '${data.to}', '${otp.toString()}','${newDate}' ,'0');`;
     //console.log(sql);
     //INSERT INTO "public"."tb_otp"("id", "phone", "otp", "senddate", "status") VALUES (1, '0812318897', '111111', '2011-01-01 00:00:00', '0');
@@ -57,7 +57,7 @@ sendSmsOtp = (req , res , next) =>{
                     //handle success
                     console.log(response);
                     //  INSERT INTO "public"."tb_log_sms"("phone", "senddate", "from") VALUES ('0811111111', '2020-10-06', 'mt')
-                    sql = `INSERT INTO "public"."tb_log_sms"("phone", "senddate", "from") VALUES ('${data.to}', '${newDate}', 'appGas');`;
+                    sql = `INSERT INTO "public"."tb_log_sms"("phonenumber", "senddate", "fromphone") VALUES ('${data.to}', '${newDate}', 'appGas');`;
                     pool.query(sql , (err, result) =>{
                         if (err) {
                             //console.log(err);  
@@ -108,7 +108,7 @@ checkOtp = (req , res , next) =>{
         otp : dataBody.otp
     }
     let sql = `SELECT * FROM "public"."tb_otp_gas" 
-                WHERE tb_otp_gas.phone = '${data.phoneNumber}'
+                WHERE tb_otp_gas.phoneNumber = '${data.phoneNumber}'
                 ORDER BY tb_otp_gas.senddate DESC
                 LIMIT 1;`;
     pool.query(sql , (err, result) =>{
