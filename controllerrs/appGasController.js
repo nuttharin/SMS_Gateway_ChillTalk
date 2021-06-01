@@ -47,7 +47,7 @@ sendSmsOtp = (req , res , next) =>{
                 
                 res.status(200).json({
                     status : "error",
-                    data : "error insert OTP"
+                    data : "error insert OTP : " + err
                 })
             }
             else
