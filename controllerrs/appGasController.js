@@ -14,14 +14,16 @@ const api_secret_sms = process.env.API_SECRET_SMS ;
 const api_key_sms_otp = process.env.API_KEY_OTP;
 
 
-sendSmsOtp = (req , res , next) =>{ 
+sendSmsOtp = async (req , res , next) =>{ 
     let dataBody = req.body ;
 
     let otp = totp.generate(api_key_sms_otp);
     let newDate  =  moment(new Date).format('YYYY-MM-DD h:mm:ss') ;
+    let refStr = Math.random().toString(36).substring(7);
+    //console.log("random", r);
     const data = { 
         to: dataBody.phoneNumber,
-        text: "OTP ของคุณคือ "+otp+" อย่าเปิดเผยรหัสนี้กับผู้อื่น",
+        text: "OTP ของคุณคือ "+otp+" อย่าเปิดเผยรหัสนี้กับผู้อื่น [รหัสอ้างอิง : "+refStr +"]",
         api_key: api_key_sms,
         api_secret: api_secret_sms,
         from: 'CHILLTALK' ,
@@ -55,7 +57,7 @@ sendSmsOtp = (req , res , next) =>{
                 axios( options )
                 .then(function (response) {
                     //handle success
-                    console.log(response);
+                    //console.log(response);
                     //  INSERT INTO "public"."tb_log_sms"("phone", "senddate", "from") VALUES ('0811111111', '2020-10-06', 'mt')
                     sql = `INSERT INTO "public"."tb_log_sms"("phonenumber", "senddate", "fromphone") VALUES ('${data.to}', '${newDate}', 'appGas');`;
                     pool.query(sql , (err, result) =>{
