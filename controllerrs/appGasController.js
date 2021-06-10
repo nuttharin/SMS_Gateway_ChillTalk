@@ -67,7 +67,7 @@ sendSmsOtp = async (req , res , next) =>{
                             res.status(200).json({
                                 status : "error",
                                 statusCode : 200 ,
-                                data : "error insert log sms :"+err
+                                data : "error insert log sms :" + err
                             })
                         }
                         else
@@ -75,7 +75,7 @@ sendSmsOtp = async (req , res , next) =>{
                             res.status(201).json({
                                 status : "success",
                                 statusCode : 201 ,
-                                data : "send OTP complete"
+                                data : { response : "send OTP complete" , refCode : refStr }
                             });
                         }
                     })
