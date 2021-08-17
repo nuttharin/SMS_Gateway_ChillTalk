@@ -125,6 +125,7 @@ checkOtp = (req , res , next) =>{
         }
         else
         {
+            console.log(result)
             let dataOtp = result.rows[0] ;
             if(dataOtp.otp == data.otp)
             {
