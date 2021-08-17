@@ -109,6 +109,7 @@ checkOtp = (req , res , next) =>{
         phoneNumber : dataBody.phoneNumber,
         otp : dataBody.otp
     }
+    console.log(dataBody)
     let sql = `SELECT * FROM "public"."tb_otp_gas" 
                 WHERE tb_otp_gas.phoneNumber = '${data.phoneNumber}'
                 ORDER BY tb_otp_gas.senddate DESC
