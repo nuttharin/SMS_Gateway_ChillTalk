@@ -15,6 +15,7 @@ const api_key_sms_otp = process.env.API_KEY_OTP;
 
 
 sendSmsOtp = async (req , res , next) =>{ 
+    console.log("dddd")
     let dataBody = req.body ;
 
     let otp = totp.generate(api_key_sms_otp);
@@ -23,6 +24,7 @@ sendSmsOtp = async (req , res , next) =>{
     //console.log("random", r);
     const data = { 
         to: dataBody.phoneNumber,
+        // text : otp + "is your OTP (Ref : "+ refStr +" )",
         text: "OTP ของคุณคือ "+otp+" อย่าเปิดเผยรหัสนี้กับผู้อื่น [รหัสอ้างอิง : "+refStr +"]",
         api_key: api_key_sms,
         api_secret: api_secret_sms,
